@@ -1,0 +1,18 @@
+sigma1 = 1;
+sigma2 = sqrt(3);
+mu1 = 1;
+mu2 = 3;
+p1 = 0.5;
+p2 = 0.5;
+x = 0:0.01:5;
+y1 = normpdf(x,mu1,sigma1)*p1;
+y2 = normpdf(x,mu2,sigma2)*p2;
+boundary = y1 > y2;
+figure,plot(x,y1);
+hold on;
+plot(x,y2);
+plot(x,boundary);
+f = @(x,mu,sigma,p) normpdf(x,mu,sigma)*p;
+e1 = integral(@(x)f(x,mu2,sigma2,p1),-inf,3);
+e2 = integral(@(x)f(x,mu1,sigma1,p2),1,inf);
+e = e1+e2;
